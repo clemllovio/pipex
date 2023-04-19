@@ -6,7 +6,7 @@
 /*   By: cllovio <cllovio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 11:25:43 by cllovio           #+#    #+#             */
-/*   Updated: 2023/04/17 10:57:40 by cllovio          ###   ########.fr       */
+/*   Updated: 2023/04/19 13:00:54 by cllovio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_pipex{
 	pid_t	child_1;
 	pid_t	child_2;
 	int		check_infile;
+	int		check_outfile;
 }	t_pipex;
 
 /* ---- SOURCES ----*/

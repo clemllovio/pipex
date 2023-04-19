@@ -6,25 +6,24 @@
 /*   By: cllovio <cllovio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 14:31:58 by cllovio           #+#    #+#             */
-/*   Updated: 2023/04/17 10:09:20 by cllovio          ###   ########.fr       */
+/*   Updated: 2023/04/19 13:04:08 by cllovio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static int	check_files(t_pipex *pipex, char *infile, char *outfile);
+static void	check_files(t_pipex *pipex, char *infile, char *outfile);
 static int	get_path(char **env, t_pipex *pipex);
 
 int	parsing(t_pipex *pipex, char *infile, char *outfile, char **env)
 {
-	if (check_files(pipex, infile, outfile) == 1)
-		return (1);
+	check_files(pipex, infile, outfile);
 	if (get_path(env, pipex) == 1)
 		return (1);
 	return (0);
 }
 
-static int	check_files(t_pipex *pipex, char *infile, char *outfile)
+static void	check_files(t_pipex *pipex, char *infile, char *outfile)
 {
 	pipex->infile_fd = open(infile, O_RDONLY);
 	if (pipex->infile_fd < 0)
@@ -34,8 +33,10 @@ static int	check_files(t_pipex *pipex, char *infile, char *outfile)
 	}
 	pipex->outfile_fd = open(outfile, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (pipex->outfile_fd < 0)
-		return (perror(RED"Error"END), 1);
-	return (0);
+	{
+		pipex->check_outfile = 1;
+		perror(RED"Error"END);
+	}
 }
 
 static int	get_path(char **env, t_pipex *pipex)

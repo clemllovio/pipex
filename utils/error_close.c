@@ -6,7 +6,7 @@
 /*   By: cllovio <cllovio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 09:28:54 by cllovio           #+#    #+#             */
-/*   Updated: 2023/04/17 10:34:25 by cllovio          ###   ########.fr       */
+/*   Updated: 2023/04/19 13:03:50 by cllovio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	close_fd(t_pipex *pipex)
 
 void	error_close(t_pipex *pipex)
 {
-	if (pipex->check_infile == 0)
+	if (pipex->check_infile == 0 && pipex->check_outfile == 0)
 		perror(RED"Error"END);
 	else
 		pipex->check_infile = 0;
