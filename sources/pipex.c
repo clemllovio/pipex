@@ -6,7 +6,7 @@
 /*   By: cllovio <cllovio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 12:22:00 by cllovio           #+#    #+#             */
-/*   Updated: 2023/04/17 10:41:20 by cllovio          ###   ########.fr       */
+/*   Updated: 2023/04/20 11:13:57 by cllovio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,14 @@ static void	pipex_function(char **av, t_pipex *pipex, char **env);
 
 static void	child_process_1(t_pipex *pipex, char **av, char **env)
 {
+	pipex->check_error = -1;
 	dup_fd(pipex->infile_fd, pipex->end[1], pipex);
 	execute_cmd(pipex, av[2], env);
 }
 
 static void	child_process_2(t_pipex *pipex, char **av, char **env)
 {
+	pipex->check_error = -1;
 	dup_fd(pipex->end[0], pipex->outfile_fd, pipex);
 	execute_cmd(pipex, av[3], env);
 }

@@ -6,7 +6,7 @@
 /*   By: cllovio <cllovio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 09:15:45 by cllovio           #+#    #+#             */
-/*   Updated: 2023/04/17 10:33:48 by cllovio          ###   ########.fr       */
+/*   Updated: 2023/04/20 11:13:42 by cllovio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	execute_cmd(t_pipex *pipex, char *cmd, char **env)
 	path = get_cmd(pipex, cmd_tab[0]);
 	if (path == NULL)
 	{
-		write(2, "\033[1;31mError\033[0m: Command not found\n", 42);
+		if (pipex->check_error == 0)
+			print_error(pipex->check_error);
 		close_fd(pipex);
 		ft_free_tab(cmd_tab);
 		if (pipex->path)
@@ -33,5 +34,9 @@ void	execute_cmd(t_pipex *pipex, char *cmd, char **env)
 	}
 	ft_free_tab(pipex->path);
 	if (execve(path, cmd_tab, env) == -1)
+	{
+		free(path);
+		ft_free_tab(cmd_tab);
 		error_close(pipex);
+	}
 }

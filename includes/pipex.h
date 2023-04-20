@@ -6,7 +6,7 @@
 /*   By: cllovio <cllovio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 11:25:43 by cllovio           #+#    #+#             */
-/*   Updated: 2023/04/19 13:00:54 by cllovio          ###   ########.fr       */
+/*   Updated: 2023/04/20 11:16:12 by cllovio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,14 @@ typedef struct s_pipex{
 	pid_t	child_2;
 	int		check_infile;
 	int		check_outfile;
+	int		check_error;
 }	t_pipex;
+
+enum {
+	CMD_NOT_FOUND,
+	MALLOC_FAIL,
+	WRONG_FILE,
+};
 
 /* ---- SOURCES ----*/
 void	init_structure(t_pipex *pipex);
@@ -41,6 +48,7 @@ void	init_structure(t_pipex *pipex);
 /* ---- UTILS ----*/
 void	dup_fd(int infile_to_be, int outfile_to_be, t_pipex *pipex);
 void	close_fd(t_pipex *pipex);
+void	print_error(int check_error);
 void	error_close(t_pipex *pipex);
 void	execute_cmd(t_pipex *pipex, char *cmd, char **env);
 void	*ft_free_tab(char **tab);
